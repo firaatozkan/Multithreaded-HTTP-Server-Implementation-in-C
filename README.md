@@ -3,5 +3,16 @@ HTTP Server implementation using low-level socket interfaces (UNIX socket librar
 
 The aim is to offer a fully functional HTTP server. 
 
-Use "make" to build a single version of the project.
-Use "make release" to build a multithreaded version.
+---
+## How To Build
+```make```
+
+To build a single version of the project.
+
+```make release```
+
+To build a multithreaded version.
+
+```make debug```
+
+To build a debug optimized version.
