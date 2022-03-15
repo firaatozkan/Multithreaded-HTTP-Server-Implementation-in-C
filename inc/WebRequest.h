@@ -1,3 +1,7 @@
+/*
+ * Author   : Firat Ozkan
+ * Contact  : firaatozkan@gmail.com
+*/
 #ifndef WEBREQUEST_H
 #define WEBREQUEST_H
 

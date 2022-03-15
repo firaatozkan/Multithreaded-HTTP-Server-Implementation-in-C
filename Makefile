@@ -1,3 +1,8 @@
+#
+# Author   : Firat Ozkan
+# Contact  : firaatozkan@gmail.com
+#
+
 SRC = src
 INC = inc
 BUILD = build
@@ -52,4 +57,5 @@ debug: $(target)
 # Clean
 .PHONY: clean
 clean:
-	$(RM) -rf $(BIN)/* $(OBJ)/*
+	@$(RM) -rf $(BIN)/* $(OBJ)/*
+	@echo "Cleaned project"

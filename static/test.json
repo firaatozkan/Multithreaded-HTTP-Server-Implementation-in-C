@@ -1,0 +1,8 @@
+{
+    "test": "babo",
+
+    "object":    {
+                        "dummyInt":     15,
+                        "dummyString":  "hello"
+                    }
+}

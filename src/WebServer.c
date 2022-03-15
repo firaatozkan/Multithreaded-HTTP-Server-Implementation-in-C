@@ -1,3 +1,7 @@
+/*
+ * Author   : Firat Ozkan
+ * Contact  : firaatozkan@gmail.com
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,7 +12,7 @@
 #endif
 
 
-struct TempBuffer
+struct TempPack
 {
     WebServer* ws;
     WebRequest* wr;
@@ -43,7 +47,6 @@ void webServerInit(WebServer* ws, int portNum)
         printf("Couldn't bind socket!\n");
         exit(-1);
     }
-    printf("Succesfully created server!\n");
 }
 
 void webServerClose(WebServer* wb)
@@ -68,7 +71,7 @@ void webServerRun(WebServer* ws)
         if(clientFd >= 0)
         {
             WebRequest newClient = {&clientFd, &clientAddr, NULL, NONE};
-            struct TempBuffer t = {ws, &newClient};
+            struct TempPack t = {ws, &newClient};
             
 #ifndef MULTITHREADED
             handleClient(&t);
@@ -82,8 +85,8 @@ void webServerRun(WebServer* ws)
 
 static void* handleClient(void* ptr)
 {
-    WebServer* ws = ((struct TempBuffer*)ptr)->ws;
-    WebRequest* client = ((struct TempBuffer*)ptr)->wr;
+    WebServer* ws = ((struct TempPack*)ptr)->ws;
+    WebRequest* client = ((struct TempPack*)ptr)->wr;
     char buffer[1024];
     memset(buffer, 0, 1024);
     if(recv(*(client->clientFd), buffer, 1024, 0) > 0)

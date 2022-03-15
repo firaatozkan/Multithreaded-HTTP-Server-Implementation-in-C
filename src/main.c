@@ -1,16 +1,20 @@
+/*
+ * Author   : Firat Ozkan
+ * Contact  : firaatozkan@gmail.com
+*/
 #include <stdio.h>
 #include "WebServer.h"
 
-void denemecb(WebRequest* wr)
+void testCallback(WebRequest* wr)
 {
-    webRequestServeFile(*(wr->clientFd), "static/deneme.json");
+    webRequestServeFile(*(wr->clientFd), "static/test.json");
 }
 
 int main(void)
 {
     WebServer ws;
     webServerInit(&ws, 8080);
-    webServerAddCallback(&ws, "/deneme.json", GET, denemecb);
+    webServerAddCallback(&ws, "/test.json", GET, testCallback);
     webServerRun(&ws);
     return 0;
 }

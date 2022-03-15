@@ -1,3 +1,7 @@
+/*
+ * Author   : Firat Ozkan
+ * Contact  : firaatozkan@gmail.com
+*/
 #ifndef WEBSERVER_H
 #define WEBSERVER_H
 
