@@ -1,42 +1,24 @@
 #ifndef WEBSERVER_H
 #define WEBSERVER_H
 
-#include <string>
-#include <map>
-#include <functional>
-#include <arpa/inet.h>
+#include "WebRequest.h"
 
-class WebServer
+#define CALLBACK_TABLE_SIZE 24
+
+typedef struct 
 {
-public:
-    typedef enum
-    {
-        NONE,
-        GET,
-        POST
-    } HttpRequestType;
-
-private:
-    int serverFd, port;
+    int serverFd;
     struct sockaddr_in serverAddr;
+    WebRequestIndexAndCbPair getRequestCallbackTable[CALLBACK_TABLE_SIZE];
+    WebRequestIndexAndCbPair postRequestCallbackTable[CALLBACK_TABLE_SIZE];
+} WebServer;
 
-    std::map<std::string, std::function<void(int)>> getRequestCallbacks{};
-    std::map<std::string, std::function<void(int)>> postRequestCallbacks{};
+void webServerInit(WebServer* ws, int portNum);
 
-    void handleClient(const int& clientFd);
-    std::string parseHttpRequest(char* bufPtr, HttpRequestType& requestType);
-    void operateCallbacks(const int& clientFd, const HttpRequestType& clientRequestType, const std::string& clientRequestIndex);
-    void respondToBadResponse();
-    static std::string getFileExtension(const std::string& fileName);
-public:
-    explicit WebServer(const int& portNum = 8080);
-    ~WebServer();
-    void run();
-    void addCustomCallback(const std::string& index, const HttpRequestType& requestType, std::function<void(int)> func);
-    void serveFileOn(const std::string& index, const HttpRequestType& requestType, const std::string& filePath);
-    static void serveFile(const int& clientFd, const std::string& filePath);
-};
+void webServerRun(WebServer* ws);
 
-std::string getFileExtension(const std::string& fileName);
+void webServerClose(WebServer* wb);
+
+void webServerAddCallback(WebServer* wb, const char* index, HttpRequestType requestType, void (*callbackFunc)(WebRequest*));
 
 #endif
