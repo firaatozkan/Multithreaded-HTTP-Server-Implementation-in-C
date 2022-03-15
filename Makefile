@@ -32,7 +32,7 @@ $(OBJ)/%.o: $(SRC)/%.c
 
 # Optimize for size
 .PHONY: release
-release: CFLAGS += -O3
+release: CFLAGS += -O3 -DMULTITHREADED
 release: LIBS += -lpthread
 release: $(target)
 
